@@ -174,21 +174,6 @@ Foxtrick.modules['TeamPopupLinks'] = {
 			}
 			(document.head || document.documentElement).appendChild(s);
 			s.onload = () => s.remove();
-
-			let a = Foxtrick.getMBElement(doc, 'lnkShowLogins');
-			if (!a) return
-			try {
-			  setTimeout(() => {
-					window.postMessage({
-						source: "foxtrick",
-						action: "triggerPostback",
-						targetId: a.id
-					}, "*");
-				}, 500);
-
-			} catch (error) {
-			  Foxtrick.reportError(error);							
-			}
 		}
 
 		module.addPopupLinks(doc);

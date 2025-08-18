@@ -1,10 +1,6 @@
 // @ts-nocheck
-window.addEventListener("message", (event) => {
-  if (event.source !== window) return;
-  if (!event.data || event.data.source !== "foxtrick") return;
-  if (event.data.action !== "triggerPostback") return;
-
-  const id = event.data.targetId;
+window.addEventListener("load", () => {
+  const id = "ctl00_ctl00_CPContent_CPMain_lnkShowLogins";
   const link = document.getElementById(id);
   
   if (!link) {
