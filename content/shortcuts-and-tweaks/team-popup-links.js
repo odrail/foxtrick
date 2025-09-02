@@ -164,16 +164,10 @@ Foxtrick.modules['TeamPopupLinks'] = {
 	run: function(doc) {
 		const module = this;
 
-		// show last 5 logins
-		if (/ShowOldConnections=true/i.test(doc.URL)) {
-			const s = document.createElement("script");
-			if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL) {
-				s.src = chrome.runtime.getURL("content/resources/js/ShowOldConnectionsInjected.js");
-			} else if (typeof browser !== "undefined" && browser.runtime && browser.runtime.getURL) {
-				s.src = browser.runtime.getURL("content/resources/js/ShowOldConnectionsInjected.js");
-			}
-			(document.head || document.documentElement).appendChild(s);
-			s.onload = () => s.remove();
+		// show last 6 logins
+		if (Foxtrick.isPage(doc, 'managerPage') && /ShowOldConnections=true/i.test(doc.URL)) {
+			const scriptTag = Foxtrick.util.inject.jsLink(doc, `${Foxtrick.InternalPath}resources/js/ShowOldConnectionsInjected.js`);
+			scriptTag.onload  = () => scriptTag.remove();
 		}
 
 		module.addPopupLinks(doc);
